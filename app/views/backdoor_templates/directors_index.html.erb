@@ -16,9 +16,31 @@
     <h1>Directors</h1>
   </header>
 
-  <% @list_of_directors.each do |a_director| %>
-    <div>
-      <%= a_director.first_name %> <%= a_director.last_name %>
-    </div>
-  <% end %>
+  <table>
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @list_of_directors.each do |a_director| %>
+        <tr>
+          <td>
+            <%= a_director.first_name %>
+          </td>
+          <td>
+            <%= a_director.last_name %>
+          </td>
+          <td>
+            <a href="/backdoor/delete_director/<%= a_director.id%>">
+              Delete
+            </a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </article>
