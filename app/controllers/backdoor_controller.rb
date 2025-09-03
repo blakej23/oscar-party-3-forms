@@ -22,4 +22,10 @@ class BackdoorController < ApplicationController
     end
   end
 
+  def directors_index
+    @list_of_directors = Director.all 
+
+    render({ :template => "backdoor_templates/directors_index"})
+  end
+
 end

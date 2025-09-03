@@ -1,0 +1,24 @@
+<nav>
+  <ul>
+    <li><a href="/backdoor/directors">Manage Directors</a></li>
+  </ul>
+</nav>
+
+<nav aria-label="breadcrumb">
+  <ul>
+    <li><a href="/backdoor">Admin</a></li>
+    <li>Manage directors</li>
+  </ul>
+</nav>
+
+<article>
+  <header>
+    <h1>Directors</h1>
+  </header>
+
+  <% @list_of_directors.each do |a_director| %>
+    <div>
+      <%= a_director.first_name %> <%= a_director.last_name %>
+    </div>
+  <% end %>
+</article>
