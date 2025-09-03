@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get("/actors/:path_id", { :controller => "actors", :action => "show" })
 
   get("/backdoor", { :controller => "backdoor", :action => "index"})
+  post("/backdoor/insert_director", { :controller => "backdoor", :action => "create_director"})
 end

@@ -6,4 +6,17 @@ class BackdoorController < ApplicationController
     render({ :template => "backdoor_templates/index" })
   end
 
+  def create_director
+    the_director = Director.new
+    the_director.first_name = params.fetch("query_first_name")
+    the_director.last_name = params.fetch("query_last_name")
+
+    if the_director.valid?
+      the_director.save
+      redirect_to("/backdoor", { :notice => "Director created successfully." })
+    else
+      redirect_to("/backdoor", { :alert => the_director.errors.full_messages.to_sentence })
+    end
+  end
+
 end
