@@ -77,6 +77,45 @@ class BackdoorController < ApplicationController
     end
   end
 
+  def actors_index
+    @list_of_actors = Actor.all 
+    render({ :template => "backdoor_templates/actors_index"})
+  end
+
+  def actor_show
+    the_id = params.fetch("path_id")
+    @the_actor = Actor.where({ :id => the_id }).at(0)
+
+    render({ :template => "backdoor_templates/actor_show"})
+  end
+
+  def update_actor
+    the_id = params.fetch("path_id")
+    the_actor = Actor.where({ :id => the_id }).at(0)
+
+    the_actor.first_name = params.fetch("query_first_name")
+    the_actor.last_name = params.fetch("query_last_name")
+    the_actor.dob = params.fetch("query_dob")
+    the_actor.bio = params.fetch("query_bio")
+    the_actor.image = params.fetch("query_image")
+
+    if the_actor.valid?
+      the_actor.save
+      redirect_to("/backdoor/actors/#{the_actor.id}", { :notice => "Actor updated successfully." })
+    else
+      redirect_to("/backdoor/actors/#{the_actor.id}", { :alert => the_actor.errors.full_messages.to_sentence })
+    end
+  end
+
+  def destroy_actor
+    the_id = params.fetch("path_id")
+    the_actor = Actor.where({ :id => the_id }).at(0)
+
+    the_actor.destroy
+
+    redirect_to("/backdoor/actors", { :notice => "Actor deleted successfully." })
+  end
+
   def create_movie
     the_movie = Movie.new
     the_movie.title = params.fetch("query_title")
@@ -95,6 +134,11 @@ class BackdoorController < ApplicationController
     else
       redirect_to("/backdoor", { :alert => the_movie.errors.full_messages.to_sentence })
     end
+  end
+
+  def movies_index
+      @list_of_movies = Movie.all 
+      render({ :template => "backdoor_templates/movies_index"})
   end
 
 end

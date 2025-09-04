@@ -1,0 +1,28 @@
+<table>
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @list_of_actors.each do |a_actor| %>
+        <tr>
+          <td>
+            <%= a_actor.first_name %>
+          </td>
+          <td>
+            <%= a_actor.last_name %>
+          </td>
+          <td>
+            <a href="/backdoor/actors/<%= a_actor.id%>">Edit</a>
+            <a href="/backdoor/delete_actor/<%= a_actor.id%>">
+              Delete
+            </a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</article>

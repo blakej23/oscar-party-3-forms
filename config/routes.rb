@@ -16,14 +16,22 @@ Rails.application.routes.draw do
 
   get("/backdoor", { :controller => "backdoor", :action => "index"})
 
+  post("/backdoor/insert_director", { :controller => "backdoor", :action => "create_director"})
   get("/backdoor/directors", { :controller => "backdoor", :action => "directors_index" })
   get("/backdoor/directors/:path_id", { :controller => "backdoor", :action => "director_show"})
-  post("/backdoor/insert_director", { :controller => "backdoor", :action => "create_director"})
   post("/backdoor/modify_director/:path_id", { :controller => "backdoor", :action => "update_director" })
   get("/backdoor/delete_director/:path_id", { :controller => "backdoor", :action => "destroy_director" })
 
   post("/backdoor/insert_actor", { :controller => "backdoor", :action => "create_actor"})
+  get("/backdoor/actors", { :controller => "backdoor", :action => "actors_index" })
+  get("/backdoor/actors/:path_id", { :controller => "backdoor", :action => "actor_show"})
+  post("/backdoor/modify_actor/:path_id", { :controller => "backdoor", :action => "update_actor" })
+  get("/backdoor/delete_actor/:path_id", { :controller => "backdoor", :action => "destroy_actor" })
+
+
 
   post("/backdoor/insert_movie", { :controller => "backdoor", :action => "create_movie"})
-  
+  get("/backdoor/movies", { :controller => "backdoor", :action => "movies_index" })
+
+
 end
