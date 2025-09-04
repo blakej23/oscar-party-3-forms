@@ -1,7 +1,6 @@
 class BackdoorController < ApplicationController
   http_basic_authenticate_with name: ENV.fetch("ADMIN_USERNAME"), password: ENV.fetch("ADMIN_PASSWORD")
 
-
   def index
     render({ :template => "backdoor_templates/index" })
   end
@@ -35,6 +34,31 @@ class BackdoorController < ApplicationController
     the_director.destroy
 
     redirect_to("/backdoor/directors", { :notice => "Director deleted successfully." })
+  end
+
+  def director_show
+    the_id = params.fetch("path_id")
+    @the_director = Director.where({ :id => the_id }).at(0)
+
+    render({ :template => "backdoor_templates/director_show"})
+  end
+
+  def update_director
+    the_id = params.fetch("path_id")
+    the_director = Director.where({ :id => the_id }).at(0)
+
+    the_director.first_name = params.fetch("query_first_name")
+    the_director.last_name = params.fetch("query_last_name")
+    the_director.dob = params.fetch("query_dob")
+    the_director.bio = params.fetch("query_bio")
+    the_director.image = params.fetch("query_image")
+
+    if the_director.valid?
+      the_director.save
+      redirect_to("/backdoor/directors/#{the_director.id}", { :notice => "Director updated successfully." })
+    else
+      redirect_to("/backdoor/directors/#{the_director.id}", { :alert => the_director.errors.full_messages.to_sentence })
+    end
   end
 
 end
